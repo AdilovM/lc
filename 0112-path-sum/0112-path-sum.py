@@ -6,11 +6,12 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        # base case 1
         if not root:
             return False
+        # base case 2. if no more children left check root.val against what is left from targetSum
         if not root.left and not root.right:
             return root.val == targetSum
         targetSum -= root.val
-
-        # Recursively check the left and right subtrees
+        
         return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
