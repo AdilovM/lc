@@ -2,26 +2,18 @@ class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         # dynamic programming bottom up
         # recursive: top down
-        ROWS, COLS = len(matrix), len(matrix[0])
-        cache = {} # map each (r,c) -> maxLength of square
+        H = len(matrix)
+        W = len(matrix[0])
+        dp = [[0 for _ in range(W)] for _ in range(H)]
+        answer = 0
+        for row in range(H):
+            for col in range(W):
+                if matrix[row][col] == "1":
+                    dp[row][col] = 1
+                    if row > 0 and col > 0:
+                        dp[row][col] += min(dp[row - 1][col], dp[row][col - 1], dp[row - 1][col -1])
+                    answer = max(answer, dp[row][col])
+        return answer * answer
         
-        # T: O(m*n) S: O(m*n)
-        def helper(r,c):
-            if r >= ROWS or c >= COLS:
-                return 0
-            
-            if (r,c) not in cache:
-                down = helper(r + 1, c)
-                right = helper(r, c + 1)
-                diag = helper(r + 1, c + 1)
-                
-                cache[(r, c)] = 0
-                
-                if matrix[r][c] == "1":
-                    cache[(r, c)] = 1 + min(down, right, diag)
-            
-            
-            return cache[(r,c)]
+    
         
-        helper(0,0)
-        return max(cache.values()) ** 2
