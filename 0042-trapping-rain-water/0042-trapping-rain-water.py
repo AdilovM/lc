@@ -6,7 +6,7 @@ class Solution:
         maxLeft[0] = height[0]
         maxRight = [0] * len(height)
         maxRight[-1] = height[-1]
-        result = 0
+        result = [0] * len(height)
         
         for i in range(1, len(height)):
             maxLeft[i] = max(maxLeft[i-1], height[i])
@@ -17,9 +17,14 @@ class Solution:
             
         print(maxRight)
         for i in range(len(height)):
-            result += min(maxLeft[i], maxRight[i]) - height[i]
+            result[i] = min(maxLeft[i], maxRight[i])
+        answer = 0
         
-        return result
+        for i in range(len(result)):
+            answer += result[i] - height[i]
+        
+        
+        return answer
                     
             
         
