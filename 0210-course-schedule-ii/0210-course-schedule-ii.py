@@ -26,5 +26,6 @@ class Solution:
         
         for crs in range(numCourses):
             if not helper_dfs(crs): return []
+        print(result)
         return result
                 
