@@ -13,19 +13,18 @@ class Solution:
             if crs in visited:
                 return True
             currentPath.add(crs)
-            visited.add(crs)
+            
             
             for pre in preqMap[crs]:
                 if not helper_dfs(pre): return False
             
             currentPath.remove(crs)
+            visited.add(crs)
             result.append(crs)
-            preqMap[crs] = []
             
             return True
         
         for crs in range(numCourses):
             if not helper_dfs(crs): return []
-        print(result)
         return result
                 
