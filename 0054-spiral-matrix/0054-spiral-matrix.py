@@ -1,7 +1,29 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        res = []
-        while matrix:
-            res.extend(matrix.pop(0))
-            matrix = [*zip(*matrix)][::-1]
-        return res
+        if not matrix:
+            return []
+        rows, cols = len(matrix), len(matrix[0])
+        right, bottom, left, top = cols - 1, rows - 1, 0, 0
+        
+        result = []
+        num_of_visited_cells = len(result)
+        total_cells = rows * cols
+        
+        while len(result) < total_cells:
+            for i in range(left, right + 1):
+                result.append(matrix[top][i])
+            top += 1
+            
+            for i in range(top, bottom + 1):
+                result.append(matrix[i][right])
+            right -=1
+            
+            if top <= bottom:
+                for i in range(right, left - 1, -1):
+                    result.append(matrix[bottom][i])
+                bottom -= 1
+            if left <= right:
+                for i in range(bottom, top -1 , -1):
+                    result.append(matrix[i][left])
+                left += 1
+        return result
