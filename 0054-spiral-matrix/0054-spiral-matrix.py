@@ -6,10 +6,9 @@ class Solution:
         right, bottom, left, top = cols - 1, rows - 1, 0, 0
         
         result = []
-        num_of_visited_cells = len(result)
-        total_cells = rows * cols
-        
-        while len(result) < total_cells:
+        total_cells_num = rows * cols
+        visited_cells_num = 0
+        while visited_cells_num < total_cells_num:
             for i in range(left, right + 1):
                 result.append(matrix[top][i])
             top += 1
@@ -26,4 +25,5 @@ class Solution:
                 for i in range(bottom, top -1 , -1):
                     result.append(matrix[i][left])
                 left += 1
+            visited_cells_num = len(result)
         return result
