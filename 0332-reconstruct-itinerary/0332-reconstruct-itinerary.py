@@ -1,18 +1,17 @@
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        def visit(airport):
-            while graph[airport]:
-                visit(graph[airport].pop())
-            itinerary.append(airport)
-    
-        # Sort the tickets in reverse lexical order because we will pop from the end
-        tickets.sort(key=lambda x: x[1], reverse=True)
+        res = []
+        # build a graph
         graph = defaultdict(list)
-        for start, end in tickets:
-            graph[start].append(end)
-
-        itinerary = []
-        visit('JFK')
-
-        # The itinerary is constructed in reverse, so we need to reverse it back
-        return itinerary[::-1]
+        for t in tickets:
+            s, e = t
+            graph[s].append(e)
+        for k, v in graph.items():
+            graph[k] = sorted(v)
+        def dfs(airport):
+            # post order dfs
+            while graph[airport]:
+                dfs(graph[airport].pop(0))
+            res.append(airport)
+        dfs("JFK")
+        return res[::-1]
