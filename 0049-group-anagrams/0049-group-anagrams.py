@@ -11,5 +11,5 @@ class Solution:
             count = [0] * 26
             for c in s:
                 count[ord(c) - ord('a')] += 1
-            result[tuple(count)].append(s)
+            result[str(count)].append(s)
         return result.values()
