@@ -9,10 +9,9 @@ class Solution:
         counts = {}
         for num in nums:
             counts[num] = counts.get(num, 0) + 1
-        frequency_list = [(number, freq) for number, freq in counts.items()]
-        
-        frequency_list.sort(key=lambda x: x[1], reverse=True)
-  
-        top_k = [number for number, freq in frequency_list[:k]]
-
+        freq_list = [(number, freq) for number, freq in counts.items()]
+        freq_list.sort(key=lambda x: x[1], reverse=True)
+        top_k = [num for num, freq in freq_list[:k]]
         return top_k
+        
+        
