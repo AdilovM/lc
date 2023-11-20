@@ -6,10 +6,10 @@ class Solution(object):
         :rtype: List[int]
         """
         diff = {}
-        for idx, num in enumerate(nums):
-            if target - num in diff:
-                return [diff[target-num], idx]
-            else:
-                diff[num] = idx
-        return []
         
+        for i in range(len(nums)):
+            if target - nums[i] in diff:
+                return [diff[target - nums[i]], i]
+            else:
+                diff[nums[i]] = i
+                
