@@ -4,11 +4,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        visited = set()
-        visited.add(nums[0])
-        
-        for i in range(1, len(nums)):
-            if nums[i] in visited:
+        count = {}
+        for num in nums:
+            if num in count:
                 return True
-            visited.add(nums[i])
+            else:
+                count[num] = 1
         return False
