@@ -6,10 +6,16 @@
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev, curr = None, head
-        while curr:
-            temp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = temp
         
+        while curr:
+            # save the next node
+            temp = curr.next
+            # next become prev
+            curr.next = prev
+            # prev becomes curr
+            prev = curr
+            # curr become original curr.next (temp)
+            curr = temp
+            # move the next node
+        # return prev. after exiting the loop prev is the last node in original ll
         return prev
