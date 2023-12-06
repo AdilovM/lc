@@ -7,17 +7,19 @@
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         
-        def dfs(node, path_sum):
-            if node:
-                if low <= node.val <= high:
-                    path_sum += node.val
-
-                if node.val > low:
-                    path_sum = dfs(node.left, path_sum)
-                if node.val < high:
-                    path_sum = dfs(node.right, path_sum)
-
-            return path_sum
+        path_sum = 0
+        stack = [root]
         
-        return dfs(root, 0)
-            
+        while stack:
+            current_node = stack.pop()
+            if current_node:
+                if low <= current_node.val <= high:
+                    path_sum += current_node.val
+
+                if current_node.val > low:
+                    stack.append(current_node.left)
+
+                if current_node.val < high:
+                    stack.append(current_node.right)
+                
+        return path_sum
