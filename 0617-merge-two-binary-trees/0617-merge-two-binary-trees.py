@@ -10,25 +10,10 @@ class Solution:
             return root2
         if not root2:
             return root1
-
-        stack = [(root1, root2)]
-        while stack:
-            t1_current_node, t2_current_node = stack.pop()
-
-            # Add the values from both nodes
-            t1_current_node.val += t2_current_node.val
-
-            # Handle left child
-            if t1_current_node.left and t2_current_node.left:
-                stack.append((t1_current_node.left, t2_current_node.left))
-            elif not t1_current_node.left:
-                t1_current_node.left = t2_current_node.left
-
-            # Handle right child
-            if t1_current_node.right and t2_current_node.right:
-                stack.append((t1_current_node.right, t2_current_node.right))
-            elif not t1_current_node.right:
-                t1_current_node.right = t2_current_node.right
-
+        root1.val += root2.val
+        
+        root1.left = self.mergeTrees(root1.left, root2.left)
+        root1.right = self.mergeTrees(root1.right, root2.right)
+        
+        
         return root1
-            
