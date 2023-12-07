@@ -2,12 +2,12 @@ class MovingAverage:
 
     def __init__(self, size: int):
         self.size = size
-        self.vals = []
+        self. q = []
     def next(self, val: int) -> float:
-        size, vals = self.size, self.vals
-        vals.append(val)
-        window = sum(vals[-size:])
-        return window  / min(len(vals), size)
+        size, q = self.size, self.q
+        q.append(val)
+        window = sum(q[-size:])
+        return window / min(len(q), size )
         
 
 
