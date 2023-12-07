@@ -10,10 +10,24 @@ class Solution:
             return root2
         if not root2:
             return root1
-        root1.val += root2.val
-        
-        root1.left = self.mergeTrees(root1.left, root2.left)
-        root1.right = self.mergeTrees(root1.right, root2.right)
-        
-        
+        stack = [(root1, root2)]
+        while stack:
+            t1, t2 = stack.pop()
+            # add t1 and t2 values
+            t1.val += t2.val
+            
+            # if t1 left and t2 left exist, add them
+            if t1.left and t2.left:
+                stack.append((t1.left, t2.left))
+            # if no t1 left, t2 left becomes t1 left
+            elif not t1.left:
+                t1.left = t2.left
+            
+            # if t1 right and t2 right exist, add them
+            if t1.right and t2.right:
+                stack.append((t1.right, t2.right))
+            # if no t1 right, t2 right becomes t1 right
+            elif not t1.right:
+                t1.right = t2.right
+                
         return root1
