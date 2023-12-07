@@ -8,10 +8,9 @@ class Solution:
                 t = nums[l]
                 nums[l] = nums[r]
                 nums[r] = t
-                
             if nums[l] % 2 == 0:
                 l += 1
             if nums[r] % 2 == 1:
                 r -= 1
-                
         return nums
+                
