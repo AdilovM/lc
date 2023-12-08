@@ -7,7 +7,8 @@ class Solution:
         for char in counts:
             heapq.heappush(max_heap, (-counts[char], char))
         res = ""
-        for i in range(len(max_heap)):
+        
+        for k in counts:
             f, c = heapq.heappop(max_heap)
             res += c * (-f)
             
