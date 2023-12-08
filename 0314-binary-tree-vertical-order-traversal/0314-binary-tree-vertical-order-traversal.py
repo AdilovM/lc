@@ -8,12 +8,13 @@ class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         column_table = defaultdict(list)
         queue = deque([(root, 0)])
-        
         while queue:
             node, column = queue.popleft()
             
-            if node is not None:
+            if node:
                 column_table[column].append(node.val)
+                
                 queue.append((node.left, column - 1))
                 queue.append((node.right, column + 1))
+        print(column_table)
         return [column_table[x] for x in sorted(column_table.keys())]
