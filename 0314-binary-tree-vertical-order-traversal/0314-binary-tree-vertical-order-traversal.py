@@ -6,15 +6,18 @@
 #         self.right = right
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        # dict of lists
         column_table = defaultdict(list)
-        queue = deque([(root, 0)])
-        while queue:
-            node, column = queue.popleft()
-            
+        # create q and add (root, 0) as first element
+        q = deque([(root, 0)])
+        # while element in q
+        while q:
+            # pop (node, column)
+            node, column = q.popleft()
+            # if node exists add node.val at column_table[column]
             if node:
                 column_table[column].append(node.val)
-                
-                queue.append((node.left, column - 1))
-                queue.append((node.right, column + 1))
-        print(column_table)
+                # append node.left to left side from root
+                q.append((node.left, column - 1))
+                q.append((node.right, column + 1))
         return [column_table[x] for x in sorted(column_table.keys())]
