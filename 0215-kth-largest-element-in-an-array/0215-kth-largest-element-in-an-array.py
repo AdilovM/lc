@@ -1,34 +1,39 @@
-class Solution:
+class Solution:    
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        """
-        simpe way:
-        1. order desc
-        2. return kth element
-        
-        quickselect
-        1. choose pivot index, usually last index. swap elements so left side of pivot is less than kth element
-        and right side of pivot is greater than kth element
-        2. if pivot == k return pivot
-        3. if pivot < k, do quick select on right side, pivot = k - pivot and continue quickselect. 
-        example: k = 5 but pivot = 2, new pivot = 5 -2 = 3
-        4. if pivot > k, do quickselect on left side, we do search until pivot
-        curr
-        [3,2,1,5,6,4]
-        p           
-        """
-        min_value = min(nums)
-        max_value = max(nums)
-        count = [0] * (max_value - min_value + 1)
+        nums.sort(reverse=True)
+        return nums[k-1]
+#         def partition(left, right, pivot_index) -> int:
+#             pivot = nums[pivot_index]
+#             # Move pivot to the end
+#             nums[pivot_index], nums[right] = nums[right], nums[pivot_index]
 
-        for num in nums:
-            count[num - min_value] += 1
-        
-        remain = k
-        # print(count)
-        for idx in range(len(count)-1, -1, -1):
-            remain -= count[idx]
-            if remain <= 0:
-                return idx + min_value # becase idx=num-min_value, then num=idx+min_value
+#             # Move all larger elements to the left
+#             store_index = left
+#             for i in range(left, right):
+#                 if nums[i] > pivot:
+#                     nums[store_index], nums[i] = nums[i], nums[store_index]
+#                     store_index += 1
 
-        return -1
-        
+#             # Move pivot to its final place
+#             nums[right], nums[store_index] = nums[store_index], nums[right]
+#             return store_index
+
+#         def select(left, right, k_smallest) -> int:
+#             if left == right:  # If the list contains only one element
+#                 return nums[left]
+
+#             # Select a random pivot_index
+#             pivot_index = random.randint(left, right)
+
+#             # Find the pivot position in a sorted list
+#             pivot_index = partition(left, right, pivot_index)
+
+#             # The pivot is in its final sorted position
+#             if k_smallest == pivot_index:
+#                 return nums[k_smallest]
+#             elif k_smallest < pivot_index:
+#                 return select(left, pivot_index - 1, k_smallest)
+#             else:
+#                 return select(pivot_index + 1, right, k_smallest)
+
+#         return select(0, len(nums) - 1, k - 1)
