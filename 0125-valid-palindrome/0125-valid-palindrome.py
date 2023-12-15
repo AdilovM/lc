@@ -1,18 +1,20 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        l, r = 0, len(s) - 1
-        while l < r:
-            # move l
-            while l < r and not self.is_alpha_num(s[l]):
-                l += 1
-            # move r
-            while l < r and not self.is_alpha_num(s[r]):
-                r -= 1
-            
-            if s[l].lower() != s[r].lower():
+
+        i, j = 0, len(s) - 1
+
+        while i < j:
+            while i < j and not s[i].isalnum():
+                i += 1
+            while i < j and not s[j].isalnum():
+                j -= 1
+
+            if s[i].lower() != s[j].lower():
                 return False
-            l += 1
-            r -= 1
+
+            i += 1
+            j -= 1
+
         return True
         
     def is_alpha_num(self, c):
