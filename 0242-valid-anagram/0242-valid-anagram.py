@@ -1,17 +1,17 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        if (s and not t) or (not s and t):
+            return False
         if len(s) != len(t):
             return False
-        s_chars = {}
-        t_chars = {}
-        
-        for c in s:
-            s_chars[c] = s_chars.get(c, 0) + 1
-        for c in t:
-            t_chars[c] = t_chars.get(c, 0) + 1
-        
-        for c in s_chars:
-            if c not in t_chars or t_chars[c] != s_chars[c]:
+
+        count = [0] * 128
+        for char in s:
+            count[ord(char)] +=1
+
+        for char in t:
+            count[ord(char)] -= 1
+            if count[ord(char)] < 0:
                 return False
         
         return True
