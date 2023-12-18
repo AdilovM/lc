@@ -15,12 +15,10 @@ class Solution:
                 column_table[column].append(node.val)
                 q.append((node.left, column - 1))
                 q.append((node.right, column + 1))
+                
+        result = [v for k, v in sorted(column_table.items())]
+        return result
         
-        column_table = sorted(column_table.items())
         
-        output = []
-        for idx, lst in column_table:
-            output.append(lst)
         
-        return output
         
