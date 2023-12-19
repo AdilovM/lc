@@ -1,34 +1,29 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        """
-        numCourses = 5
-        prerequisites = [[0,1],[0,2],[1,3],[1,4],[3,4]]
-        preqMap
-        course | preq
-        0       | [1,2]
-        1       | [3,4]
-        2       | []  
-        3       | [4]
-        4       | []
-        """
-        preqMap = {i:[] for i in range(numCourses)}
-        
-        for c, p in prerequisites:
-            preqMap[c].append(p)
-        visited = set()
-        def helper_dfs(crs):
-            if crs in visited:
-                return False
-            if preqMap[crs] == []:
-                return True
-            visited.add(crs)
+        # build and populate course : preqs graph
+        graph = {course : [] for course in range(numCourses)}
+        for course, preq in prerequisites:
+            graph[course].append(preq)
             
-            for pre in preqMap[crs]:
-                if not helper_dfs(pre): return False
-            visited.remove(crs)
-            preqMap[crs] = []
+        # dfs traversal. base cases: return False if there a cycle, return True if course has no preqs:
+        visited = set()
+        def dfs(course):
+            if course in visited:
+                return False
+            if graph[course] == []:
+                return True
+            visited.add(course)
+            for preq in graph[course]:
+                if not dfs(preq):
+                    return False    
+            visited.remove(course)
+            graph[course] = []
             return True
-        for crs in range(numCourses):
-            if not helper_dfs(crs): return False
+            
+        # call dfs on each course
+        for course in range(numCourses):
+            if not dfs(course):
+                return False
         return True
-                
+    
+        
