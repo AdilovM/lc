@@ -16,9 +16,15 @@ class Solution:
         # Iterate until both pointers meet at the LCA
         while a != b:
             # If a reaches root (None), restart it at q
-            a = a.parent if a else q
+            if a:
+                a = a.parent  
+            else:
+                a = q
             # If b reaches root (None), restart it at p
-            b = b.parent if b else p
+            if b:
+                b = b.parent  
+            else:
+                b = p
 
         # At this point, a and b point to the LCA
         return a
