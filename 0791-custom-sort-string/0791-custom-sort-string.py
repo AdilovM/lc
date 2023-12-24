@@ -6,13 +6,8 @@ class Solution:
         for c in order:
             answer.append(c * count[c])
             count[c] = 0
-        
+            
         for c in count:
             answer.append(c * count[c])
-              
-        
-        res = "".join(answer)
-        print(res)
-        return(res)
             
-            
+        return "".join(answer)
