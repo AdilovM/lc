@@ -1,29 +1,31 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # build and populate course : preqs graph
-        graph = {course : [] for course in range(numCourses)}
-        for course, preq in prerequisites:
-            graph[course].append(preq)
-            
-        # dfs traversal. base cases: return False if there a cycle, return True if course has no preqs:
+        # build graph
+        graph = {i : [] for i in range(numCourses)}
         visited = set()
-        def dfs(course):
-            if course in visited:
-                return False
-            if graph[course] == []:
+        # populate the graph
+        for crs, preq in prerequisites:
+            graph[crs].append(preq)
+        
+        def dfs(crs):
+            if graph[crs] == []:
                 return True
-            visited.add(course)
-            for preq in graph[course]:
+            if crs in visited:
+                return False
+            visited.add(crs)
+            for preq in graph[crs]:
                 if not dfs(preq):
-                    return False    
-            visited.remove(course)
-            graph[course] = []
+                    return False
+            
+            visited.remove(crs)
+            graph[crs] = []
             return True
             
-        # call dfs on each course
-        for course in range(numCourses):
-            if not dfs(course):
+        
+        for crs in graph:
+            if not dfs(crs):
                 return False
         return True
-    
-        
+            
+                
+                
