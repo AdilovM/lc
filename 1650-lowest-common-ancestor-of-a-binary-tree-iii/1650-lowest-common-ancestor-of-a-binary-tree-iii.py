@@ -10,21 +10,15 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-       # Create two pointers starting at nodes p and q
         a, b = p, q
-
-        # Iterate until both pointers meet at the LCA
+        
         while a != b:
-            # If a reaches root (None), restart it at q
             if a:
-                a = a.parent  
+                a = a.parent
             else:
-                a = q
-            # If b reaches root (None), restart it at p
+                a = p
             if b:
-                b = b.parent  
+                b = b.parent
             else:
-                b = p
-
-        # At this point, a and b point to the LCA
+                b = q
         return a
