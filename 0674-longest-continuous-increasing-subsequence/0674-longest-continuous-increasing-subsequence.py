@@ -9,5 +9,3 @@ class Solution:
                 result = max(result, count)
                 count = 1
         return max(result, count)
-                
-        
