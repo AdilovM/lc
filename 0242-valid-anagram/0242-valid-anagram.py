@@ -3,13 +3,10 @@ class Solution:
         if len(s) != len(t):
             return False
         count = [0] * 128
-        
-        for char in s:
-            count[ord(char)] += 1
-        
-        for char in t:
-            count[ord(char)] -= 1
-            if count[ord(char)] < 0:
+        for c in s:
+            count[ord(c)] += 1
+        for c in t:
+            count[ord(c)] -= 1
+            if count[ord(c)] < 0:
                 return False
-            
         return True
