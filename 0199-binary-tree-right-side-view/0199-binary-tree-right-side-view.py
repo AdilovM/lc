@@ -5,17 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rightSideView(self, root: TreeNode) -> List[int]:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return None
-        res = []
         q = deque([root])
-
-        while q:            
-            q_size = len(q)
-            for i in range(q_size):
+        res = []
+        
+        while q:
+            size = len(q)
+            for i in range(size):
                 node = q.popleft()
-                if i == q_size - 1:
+                if i == size - 1:
                     res.append(node.val)
                 if node.left:
                     q.append(node.left)
