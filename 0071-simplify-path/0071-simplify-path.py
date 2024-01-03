@@ -7,6 +7,6 @@ class Solution:
                     stack.pop()
             elif not portion or portion == ".":
                 continue
-            else:
+            else: 
                 stack.append(portion)
         return "/" + "/".join(stack)
