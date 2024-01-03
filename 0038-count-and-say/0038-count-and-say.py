@@ -1,17 +1,13 @@
 class Solution:
     def countAndSay(self, n: int) -> str:
-        if n == 1:
-            return "1"
+        n -= 1
+        x = "1"
         
-        curr = []
-        prev = self.countAndSay(n - 1)
-        count = 0
-        print(prev)
-        for i in range(len(prev)):
-            count += 1
-            if i == len(prev) - 1 or prev[i] != prev[i + 1]:
-                curr.append(str(count)) 
-                curr.append(str(prev[i]))
-                count = 0
-                
-        return "".join(curr)
+        def get(f):
+            s = []
+            for g, t in groupby(f):
+                s.append(str(len(list(t))) + g)
+            return "".join(s)
+        for _ in range(n):
+            x = get(x)
+        return x
