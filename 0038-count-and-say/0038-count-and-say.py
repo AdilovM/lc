@@ -6,7 +6,7 @@ class Solution:
         curr = []
         prev = self.countAndSay(n - 1)
         count = 0
-        
+        print(prev)
         for i in range(len(prev)):
             count += 1
             if i == len(prev) - 1 or prev[i] != prev[i + 1]:
