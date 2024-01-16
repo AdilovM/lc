@@ -3,32 +3,33 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from queue import PriorityQueue
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not lists or len(lists) == 0:
-            return None
-        while len(lists) > 1:
-            mergedList = []
-            for i in range(0, len(lists), 2):
-                l1 = lists[i]
-                l2 = lists[i + 1] if i < len(lists) - 1 else None
-                mergedList.append(self.mergeTwoLists(l1, l2))
-            lists = mergedList
-        return lists[0]
-    
-    def mergeTwoLists(self, l1, l2):
-        head = ListNode()
-        curr = head
-        while l1 and l2:
-            if l1.val < l2.val:
-                curr.next = l1
-                l1 = l1.next
-            else:
-                curr.next = l2
-                l2 = l2.next
+        # Create a dummy node and initialize the current node
+        dummy = ListNode(None)
+        curr = dummy
+
+        # Custom comparison function for ListNode
+        ListNode.__lt__ = lambda self, other: self.val < other.val
+
+        # Initialize a priority queue
+        q = PriorityQueue()
+        for l in lists:
+            if l:
+                q.put(l)
+
+        # Iterate over the priority queue until it's empty
+        while not q.empty():
+            # Get the smallest node and append it to the merged list
+            node = q.get()
+            curr.next = node
             curr = curr.next
-        if l1:
-            curr.next = l1
-        elif l2:
-            curr.next = l2
-        return head.next
+
+            # If there is a next node, put it into the queue
+            if node.next:
+                q.put(node.next)
+
+        return dummy.next
+                
+            
