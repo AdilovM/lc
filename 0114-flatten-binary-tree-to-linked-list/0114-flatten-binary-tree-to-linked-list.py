@@ -9,23 +9,25 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
+        # Handle the null scenario
         if not root:
-            return
-
-        # Flatten left and right subtrees
-        self.flatten(root.left)
-        self.flatten(root.right)
-
-        # If there is a left subtree, we need to rewire
-        if root.left:
-            # Find the rightmost node in the left subtree
-            rightmost = root.left
-            while rightmost.right:
-                rightmost = rightmost.right
-
-            # Rewire the right subtree to the rightmost node
-            rightmost.right = root.right
-
-            # Move the left subtree to the right
-            root.right = root.left
-            root.left = None
+            return None
+        
+        node = root
+        while node:
+            
+            # If the node has a left child
+            if node.left:
+                
+                # Find the rightmost node
+                rightmost = node.left
+                while rightmost.right:
+                    rightmost = rightmost.right
+                
+                # rewire the connections
+                rightmost.right = node.right
+                node.right = node.left
+                node.left = None
+            
+            # move on to the right side of the tree
+            node = node.right
