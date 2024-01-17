@@ -1,21 +1,12 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        nums = list(str(num))
-        # from right to left, store the position of the greatest value that is greater than self
-        n = len(nums)
-        pos = [None for _ in range(n)]
-        pos[-1] = n - 1
-        
-        for i in reversed(range(n - 1)):  # O(N)
-            if nums[i] <= nums[pos[i + 1]]:
-                pos[i] = pos[i + 1]
-            else:
-                pos[i] = i
+        num_list = list(str(num))  # Convert the number to a list of its digits
+        last_idx = {int(x): i for i, x in enumerate(num_list)}  # Store the last index of each digit
 
-        for index, val in enumerate(nums):
-            if nums[pos[index]] > val:
-                right_index = pos[index]
-                nums[index], nums[right_index] = nums[right_index], nums[index]
-                break
-        
-        return int(''.join(nums))
+        for i, digit in enumerate(num_list):
+            for d in range(9, int(digit), -1):  # Check for a larger digit to swap with
+                if last_idx.get(d, -1) > i:  # If a larger digit is found and it's positioned after the current digit
+                    num_list[i], num_list[last_idx[d]] = num_list[last_idx[d]], num_list[i]  # Swap the digits
+                    return int(''.join(num_list))  # Return the new number after the swap
+
+        return num  
