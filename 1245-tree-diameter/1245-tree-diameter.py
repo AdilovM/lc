@@ -1,5 +1,11 @@
 class Solution:
     def treeDiameter(self, edges: List[List[int]]) -> int:
+        """
+        Here's a step-by-step approach:
+        Convert the Edge List to an Adjacency List: This will represent the tree structure and allow for efficient traversal.
+        First DFS to Find the Farthest Node: Perform a DFS starting from an arbitrary node (say, node 0) to find the farthest node from it. Let's call this           node farthestNode.
+        Second DFS to Find the Diameter: Perform a second DFS starting from farthestNode to find the farthest node from it. The distance to this farthest             node is the diameter of the tree.
+        """
         from collections import defaultdict
         graph = defaultdict(list)
         for u, v in edges:
