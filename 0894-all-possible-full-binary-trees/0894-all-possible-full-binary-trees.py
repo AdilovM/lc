@@ -6,27 +6,19 @@
 #         self.right = right
 class Solution:
     def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
-        # Memoization to store previously computed results
-        if n % 2 == 0:  # No full binary trees are possible with even number of nodes
+        if n % 2 == 0:
             return []
-        if n == 1:  # Base case: a single node
-            return [TreeNode(0)]
+        if n == 1:
+            return [TreeNode()]
 
-        if n in memo:
-            return memo[n]
+        res = []
+        for i in range(1, n, 2):
+            left = self.allPossibleFBT(i)
+            right = self.allPossibleFBT(n - i - 1)
 
-        result = []
-        for left_nodes in range(1, n, 2):  # Iterate over odd numbers
-            right_nodes = n - 1 - left_nodes
-            for left_tree in self.allPossibleFBT(left_nodes):
-                for right_tree in self.allPossibleFBT(right_nodes):
-                    root = TreeNode(0)  # Each tree has 0 as its value (as per problem statement)
-                    root.left = left_tree
-                    root.right = right_tree
-                    result.append(root)
-        
-        memo[n] = result  # Save the computed result
-        return result
+            for l in left:
+                for r in right:
+                    root = TreeNode(0, l, r)
+                    res.append(root)
 
-# Global dictionary for memoization
-memo = {}
+        return res
